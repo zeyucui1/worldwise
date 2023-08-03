@@ -2,7 +2,9 @@ import styles from './CountryList.module.css'
 import Message from './Message'
 import Spinner from './Spinner'
 import CountryItem from './CountryItem'
-const CountryList = ({ cities, isLoading }) => {
+import { useCities } from '../contexts/CitiesContext'
+const CountryList = () => {
+  const { cities, isLoading } = useCities()
   if (isLoading) return <Spinner />
   if (!cities.length)
     return (
@@ -16,10 +18,11 @@ const CountryList = ({ cities, isLoading }) => {
       return acc
     }
   }, [])
+
   return (
     <ul className={styles.countryList}>
       {countries?.map((country) => (
-        <CountryItem country={country} key={country.id} />
+        <CountryItem country={country} key={country.country} />
       ))}
     </ul>
   )
