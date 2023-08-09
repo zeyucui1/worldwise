@@ -1,9 +1,9 @@
 import {
   createContext,
-  useState,
   useEffect,
   useContext,
   useReducer,
+  useCallback,
 } from 'react'
 const BASE_URL = 'http://localhost:9000'
 const CitiesContext = createContext()
@@ -77,20 +77,24 @@ const CitiesProvider = ({ children }) => {
     }
     fetchCities()
   }, [])
-  const getCity = async (id) => {
-    if (+id === currentCity.id) return
-    dispatch({ type: 'loading' })
-    try {
-      const res = await fetch(`${BASE_URL}/cities/${id}`)
-      const data = await res.json()
-      dispatch({ type: 'city/loaded', payload: data })
-    } catch {
-      dispatch({
-        type: 'rejected',
-        payload: 'There was an error loading data...',
-      })
-    }
-  }
+
+  const getCity = useCallback(
+    async function (id) {
+      if (+id === currentCity.id) return
+      dispatch({ type: 'loading' })
+      try {
+        const res = await fetch(`${BASE_URL}/cities/${id}`)
+        const data = await res.json()
+        dispatch({ type: 'city/loaded', payload: data })
+      } catch {
+        dispatch({
+          type: 'rejected',
+          payload: 'There was an error loading data...',
+        })
+      }
+    },
+    [currentCity.id]
+  )
   const createCity = async (newCity) => {
     dispatch({ type: 'loading' })
     try {
@@ -142,7 +146,7 @@ const CitiesProvider = ({ children }) => {
 }
 const useCities = () => {
   const context = useContext(CitiesContext)
-  if (context === undefined) throw new Error('context provider is out of range')
+  if (context === undefined) throw new Error('useProvider is used out of range')
   return context
 }
 export { useCities, CitiesProvider }

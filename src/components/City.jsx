@@ -20,7 +20,7 @@ function City() {
 
   useEffect(() => {
     getCity(id)
-  }, [id])
+  }, [id,getCity])
   if (isLoading) return <Spinner></Spinner>
   const flagemojiToPNG = (flag) => {
     var countryCode = Array.from(flag, (codeUnit) => codeUnit.codePointAt())
