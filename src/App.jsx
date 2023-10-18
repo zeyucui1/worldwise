@@ -1,13 +1,15 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import ProtectedRoute from './pages/ProtectedRoute'
+
 import { CitiesProvider } from './contexts/CitiesContext'
 import { AuthProvider } from './contexts/FakeAuthContext'
+import ProtectedRoute from './pages/ProtectedRoute'
+
 import CityList from './components/CityList'
 import CountryList from './components/CountryList'
 import City from './components/City'
 import Form from './components/Form'
 import SpinnerFullPage from './components/SpinnerFullPage'
-import { lazy, Suspense } from 'react'
 
 // import Product from './pages/Product'
 // import Pricing from './pages/Pricing'
