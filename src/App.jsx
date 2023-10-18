@@ -17,12 +17,12 @@ import { lazy, Suspense } from 'react'
 // import Login from './pages/Login'
 
 // 在 React 应用程序中，通常会将所有组件打包到一个 JavaScript 文件中，这可能会导致应用程序加载时间过长，尤其是在较慢的网络连接下。为了解决这个问题，可以使用代码分割技术，将应用程序拆分为多个较小的代码块，然后在需要时动态加载这些代码块。在上面的代码中，lazy 函数用于动态导入 HomePage、Product、Pricing、PageNotFound、AppLayout 和 Login 组件。这些组件将在第一次渲染时动态加载，而不是在应用程序加载时立即加载。这可以提高应用程序的性能和用户体验。
-const HomePage = lazy(() => import('./pages/Homepage'))
+const Homepage = lazy(() => import('./pages/Homepage'))
 const Product = lazy(() => import('./pages/Product'))
 const Pricing = lazy(() => import('./pages/Pricing'))
-const PageNotFound = lazy(() => import('./pages/PageNotFound'))
-const AppLayout = lazy(() => import('./pages/AppLayout'))
 const Login = lazy(() => import('./pages/Login'))
+const AppLayout = lazy(() => import('./pages/AppLayout'))
+const PageNotFound = lazy(() => import('./pages/PageNotFound'))
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
           <Suspense fallback={<SpinnerFullPage />}>
             <Routes>
               {/* root path */}
-              <Route index element={<HomePage />} />
+              <Route index element={<Homepage />} />
               <Route path="product" element={<Product />} />
               <Route path="pricing" element={<Pricing />} />
 
